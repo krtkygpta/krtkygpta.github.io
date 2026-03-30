@@ -98,12 +98,12 @@
         .accordion {
             height: 85px;
             background-color: #8b1616;
-            color: rgb(255, 255, 255)(253, 224, 224);
+            color: white;
             cursor: pointer;
             padding: 18px;
             width: 100%;
             border: none;
-            text-align: centre;
+            text-align: center;
             outline: none;
             font-size: 28px;
             transition: 0.5s;
@@ -155,7 +155,7 @@
         /* The Modal (background) */
         
         .modal {
-            display: fixed;
+            display: none;
             /* Hidden by default */
             position: fixed;
             /* Stay in place */
@@ -171,9 +171,7 @@
             /* Full height */
             overflow: auto;
             /* Enable scroll if needed */
-            background-color: none;
-            /* Fallback color */
-            background-color: #0009;
+            background-color: rgba(0,0,0,0.6);
             /* Black w/ opacity */
         }
         /* Modal Content */
@@ -312,15 +310,14 @@
             </p>
         </div><button class="accordion">Rules</button>
         <div class="panel">
-
-            <li>If you choose Rock, you will win against Scissors but lose against Paper.</li>
-            <li>If you choose Scissors, you will win against Paper but lose against Rock.</li>
-            <li>If you choose Paper, you will win against Rock but lose against Scissors.</li>
+            <ul>
+                <li>If you choose Rock, you will win against Scissors but lose against Paper.</li>
+                <li>If you choose Scissors, you will win against Paper but lose against Rock.</li>
+                <li>If you choose Paper, you will win against Rock but lose against Scissors.</li>
             </ul>
-            </p>.</p>
         </div>
         <div class="vg-container vg-blue vg-center">
-            <h1>A Web App Developed by: <a href="../index.html">Kartikey Gupta<a></h1>
+            <h1>A Web App Developed by: <a href="../index.html">Kartikey Gupta</a></h1>
           </div>
 
 
@@ -372,6 +369,7 @@
 
         var play=10;
         var comp=10;
+        var modalTimeout;
         function computer(){
           var x = Math.floor((Math.random() * 300) + 0);
           comp = x%3;
@@ -379,7 +377,8 @@
           p = document.getElementById('p_score').innerHTML;
           c = document.getElementById('c_score').innerHTML;
           document.getElementById("myModal").style.display = "block";
-          setTimeout(() => {
+          if(modalTimeout) clearTimeout(modalTimeout);
+          modalTimeout = setTimeout(() => {
             document.getElementById("myModal").style.display = "none";
           }, 600);
           if(comp===0){
@@ -394,7 +393,7 @@
             }
             else{
               document.getElementById('res').src="assets/lost.png";
-              c = document.getElementById('c_score').innerHTML=Number(c)+1;
+              document.getElementById('c_score').innerHTML=Number(c)+1;
             }
           }
           else if(comp===1){

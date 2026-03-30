@@ -93,36 +93,35 @@
         });
         // loader
 
-        $(document).keyup(function(e) {
-            if (e.which === 38) {
-                e.preventDefault();
-                accelerate(0.075)
+        // Controls
+        document.addEventListener('keydown', function(e) {
+            if (e.code === "Space" || e.code === "ArrowUp") {
+                if (typeof isGameOver !== 'undefined' && isGameOver) {
+                    window.location.reload();
+                } else {
+                    if (typeof boostUp === 'function') boostUp();
+                }
             }
-        })
-        $(document).keydown(function(e) {
-            if (e.which === 38) {
-                e.preventDefault();
-                accelerate(-0.15)
+        });
+        
+        document.addEventListener('keyup', function(e) {
+            if (e.code === "Space" || e.code === "ArrowUp") {
+                if (typeof boostDown === 'function') boostDown();
             }
-        })
-        $(document).keydown(function(e) {
-            if (e.which === 32) {
-                e.preventDefault();
-                window.location.reload()
+        });
+
+        // Touch support for mobile
+        document.addEventListener('touchstart', function(e) {
+            if (typeof isGameOver !== 'undefined' && isGameOver) {
+                window.location.reload();
+            } else {
+                if (typeof boostUp === 'function') boostUp();
             }
-        })
-        $(document).keyup(function(e) {
-            if (e.which === 40) {
-                e.preventDefault();
-                accelerate(0.15)
-            }
-        })
-        $(document).keydown(function(e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                window.location.reload()
-            }
-        })
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            if (typeof boostDown === 'function') boostDown();
+        });
     </script>
     <!-- <div style="text-align:center;width:480px;">
         <button id="wow" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
